@@ -1,0 +1,40 @@
+
+-------------- THIS IS THE DATA INPUT TABLE CREATED ------------
+CREATE TABLE TEST
+(
+    id VARCHAR(50) PRIMARY KEY,
+    HOME_PAGE INT NOT NULL,
+    PRODUCT_PAGE INT NOT NULL,
+    WARRANTY_PAGE INT NOT NULL
+ );
+
+INSERT INTO TEST
+VALUES ('1', 1, 1, 1), 
+('2', 1, 1, 0), 
+('3', 1,0,1),
+('4',1,0,0),
+('5',0 ,1,1),
+('6',0 ,1,0),
+('7',0 , 0 ,1),
+('8',0 ,0 ,0);
+
+-----------------------------THIS IS THE QUERY USING PIVOT-----------
+SELECT Page, count (Page)
+FROM
+(SELECT 
+HOME_PAGE value,
+'HOME_PAGE' Page
+FROM TEST
+UNION ALL
+SELECT 
+PRODUCT_PAGE value,
+'PRODUCT_PAGE' Page
+FROM TEST
+UNION ALL
+SELECT
+WARRANTY_PAGE value,
+'WARRANTY_PAGE' Page
+FROM 
+TEST) TEMP
+WHERE value>0
+GROUP BY Page
